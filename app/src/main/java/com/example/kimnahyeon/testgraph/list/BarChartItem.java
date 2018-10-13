@@ -11,6 +11,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.ChartData;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 public class BarChartItem extends ChartItem {
     private Typeface mTf;
@@ -50,11 +51,14 @@ public class BarChartItem extends ChartItem {
         holder.chart.setDrawGridBackground(false);
         holder.chart.setDrawBarShadow(false);
 
+        IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(holder.chart);//엑스축을 날짜로 변환
         XAxis xAxis = holder.chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(mTf);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(true);
+        xAxis.setGranularity(1f); // only intervals of 1 day
+        xAxis.setValueFormatter(xAxisFormatter);
 
         YAxis leftAxis = holder.chart.getAxisLeft();
         leftAxis.setTypeface(mTf);

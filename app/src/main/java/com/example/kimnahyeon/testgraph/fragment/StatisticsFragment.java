@@ -87,9 +87,10 @@ public class StatisticsFragment extends Fragment {
 
         ListView lv = (ListView)view.findViewById(R.id.listView1);
         ArrayList<ChartItem> list = new ArrayList<ChartItem>();
+
         list.add(new PieChartItem(generateDataPie(1), this.getContext()));
         list.add(new BarChartItem(generateDataBar(2), this.getContext()));
-        list.add(new LineChartItem(generateDataLine(3), this.getContext()));
+       // list.add(new LineChartItem(generateDataLine(3), this.getContext()));
 
         ChartDataAdapter cda = new ChartDataAdapter(this.getContext(), list);
         lv.setAdapter(cda);
@@ -198,7 +199,8 @@ public class StatisticsFragment extends Fragment {
 
         @Override
         public int getViewTypeCount() {
-            return 3; // we have 3 different item-types
+            //return 3; // we have 3 different item-types
+            return 2;
         }
     }
 
@@ -252,16 +254,28 @@ public class StatisticsFragment extends Fragment {
 
         ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
 
-        for (int i = 0; i < 12; i++) {
-            entries.add(new BarEntry(i, (int) (Math.random() * 70) + 30));
+        ArrayList<Integer> l = new ArrayList<Integer>();
+//        for (int i = 1; i < 11; i++) {
+//            l.add(920+i);
+//        }
+//        for(int i=1;i<11;i++){
+//            l.add(1000+i);
+//        }
+
+
+        for (int i = 1; i < 21; i++) {
+            // 엑스축, 와이축 ==>날짜, 날별 총액
+            entries.add(new BarEntry(i+31, (int) (Math.random() * 70) + 30));
         }
 
-        BarDataSet d = new BarDataSet(entries, cnt+"일");
+        BarDataSet d = new BarDataSet(entries, "일별 통계"); //cnt+"일");
         d.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        d.setHighLightAlpha(255);
+        //d.setHighLightAlpha(255);
+        d.setHighLightAlpha(120);
 
         BarData cd = new BarData(d);
-        cd.setBarWidth(0.9f);
+        //cd.setBarWidth(0.9f);
+        cd.setBarWidth(0.3f);// 바 두께
         return cd;
     }
 
