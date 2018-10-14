@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.kimnahyeon.testgraph.data.Content;
 import com.example.kimnahyeon.testgraph.fragment.ContentFragment;
@@ -114,5 +115,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+//    public void onTextViewClick(View view){
+//        Toast.makeText(this, "asdsa", Toast.LENGTH_SHORT).show();
+//    }
 
 }
