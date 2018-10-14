@@ -7,8 +7,9 @@ import com.github.mikephil.charting.data.ChartData;
 
 public abstract class ChartItem {
     protected static final int TYPE_BARCHART = 0;
-    protected static final int TYPE_LINECHART = 1;
+    protected static final int TYPE_STACKBARCHART = 1;
     protected static final int TYPE_PIECHART = 2;
+    protected static final int TYPE_LINECHART = 3;
 
     protected ChartData<?> mChartData;
 

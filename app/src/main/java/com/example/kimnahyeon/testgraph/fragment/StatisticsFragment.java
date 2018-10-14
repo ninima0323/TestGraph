@@ -20,6 +20,7 @@ import com.example.kimnahyeon.testgraph.list.BarChartItem;
 import com.example.kimnahyeon.testgraph.list.ChartItem;
 import com.example.kimnahyeon.testgraph.list.LineChartItem;
 import com.example.kimnahyeon.testgraph.list.PieChartItem;
+import com.example.kimnahyeon.testgraph.list.StackBarChartItem;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
@@ -90,7 +91,7 @@ public class StatisticsFragment extends Fragment {
 
         list.add(new PieChartItem(generateDataPie(1), this.getContext()));
         list.add(new BarChartItem(generateDataBar(2), this.getContext()));
-       // list.add(new LineChartItem(generateDataLine(3), this.getContext()));
+        list.add(new StackBarChartItem(generateDataStackBar(3), this.getContext()));
 
         ChartDataAdapter cda = new ChartDataAdapter(this.getContext(), list);
         lv.setAdapter(cda);
@@ -199,51 +200,50 @@ public class StatisticsFragment extends Fragment {
 
         @Override
         public int getViewTypeCount() {
-            //return 3; // we have 3 different item-types
-            return 2;
+            return 3; // we have 3 different item-types
         }
     }
 
-    /**
-     * generates a random ChartData object with just one DataSet
-     *
-     * @return
-     */
-    private LineData generateDataLine(int cnt) {
-
-        ArrayList<Entry> e1 = new ArrayList<Entry>();
-
-        for (int i = 0; i < 12; i++) {
-            e1.add(new Entry(i, (int) (Math.random() * 65) + 40));
-        }
-
-        LineDataSet d1 = new LineDataSet(e1, "New DataSet " + cnt + ", (1)");
-        d1.setLineWidth(2.5f);
-        d1.setCircleRadius(4.5f);
-        d1.setHighLightColor(Color.rgb(244, 117, 117));
-        d1.setDrawValues(false);
-
-        ArrayList<Entry> e2 = new ArrayList<Entry>();
-
-        for (int i = 0; i < 12; i++) {
-            e2.add(new Entry(i, e1.get(i).getY() - 30));
-        }
-
-        LineDataSet d2 = new LineDataSet(e2, "New DataSet " + cnt + ", (2)");
-        d2.setLineWidth(2.5f);
-        d2.setCircleRadius(4.5f);
-        d2.setHighLightColor(Color.rgb(244, 117, 117));
-        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        d2.setDrawValues(false);
-
-        ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
-        sets.add(d1);
-        sets.add(d2);
-
-        LineData cd = new LineData(sets);
-        return cd;
-    }
+//    /**
+//     * generates a random ChartData object with just one DataSet
+//     *
+//     * @return
+//     */
+//    private LineData generateDataLine(int cnt) {
+//
+//        ArrayList<Entry> e1 = new ArrayList<Entry>();
+//
+//        for (int i = 0; i < 12; i++) {
+//            e1.add(new Entry(i, (int) (Math.random() * 65) + 40));
+//        }
+//
+//        LineDataSet d1 = new LineDataSet(e1, "New DataSet " + cnt + ", (1)");
+//        d1.setLineWidth(2.5f);
+//        d1.setCircleRadius(4.5f);
+//        d1.setHighLightColor(Color.rgb(244, 117, 117));
+//        d1.setDrawValues(false);
+//
+//        ArrayList<Entry> e2 = new ArrayList<Entry>();
+//
+//        for (int i = 0; i < 12; i++) {
+//            e2.add(new Entry(i, e1.get(i).getY() - 30));
+//        }
+//
+//        LineDataSet d2 = new LineDataSet(e2, "New DataSet " + cnt + ", (2)");
+//        d2.setLineWidth(2.5f);
+//        d2.setCircleRadius(4.5f);
+//        d2.setHighLightColor(Color.rgb(244, 117, 117));
+//        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+//        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+//        d2.setDrawValues(false);
+//
+//        ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
+//        sets.add(d1);
+//        sets.add(d2);
+//
+//        LineData cd = new LineData(sets);
+//        return cd;
+//    }
 
     /**
      * generates a random ChartData object with just one DataSet
@@ -255,20 +255,13 @@ public class StatisticsFragment extends Fragment {
         ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
 
         ArrayList<Integer> l = new ArrayList<Integer>();
-//        for (int i = 1; i < 11; i++) {
-//            l.add(920+i);
-//        }
-//        for(int i=1;i<11;i++){
-//            l.add(1000+i);
-//        }
-
 
         for (int i = 1; i < 21; i++) {
             // 엑스축, 와이축 ==>날짜, 날별 총액
             entries.add(new BarEntry(i+31, (int) (Math.random() * 70) + 30));
         }
 
-        BarDataSet d = new BarDataSet(entries, "일별 통계"); //cnt+"일");
+        BarDataSet d = new BarDataSet(entries, "일별 지출 총액"); //cnt+"일");
         d.setColors(ColorTemplate.VORDIPLOM_COLORS);
         //d.setHighLightAlpha(255);
         d.setHighLightAlpha(120);
@@ -301,6 +294,31 @@ public class StatisticsFragment extends Fragment {
         d.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
         PieData cd = new PieData(d);
+        return cd;
+    }
+
+    private BarData generateDataStackBar(int cnt) {
+
+        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+
+        for (int i = 1; i < 21; i++) {
+            float val1 = (float) i*10;
+            float val2 = (float) i*10;
+            float val3 = (float) i*10;
+            float val4 = (float) i*10;
+            float val5 = (float) i*10;
+            // 엑스축, 와이축 ==>날짜, 날별 총액
+            entries.add(new BarEntry(i, new float[]{val1, val2, val3,val4, val5}));
+        }
+
+        BarDataSet d = new BarDataSet(entries, "일별 카테코리 총액"); //cnt+"일");
+        d.setColors(ColorTemplate.VORDIPLOM_COLORS);//색설정, 색이 5개면 카테고리 상관없이 1부터 5까지 다 쓰고 나서야 1이 다시나옴
+        d.setHighLightAlpha(120);
+        d.setStackLabels(new String[]{"1", "2", "3", "4", "5"});
+
+        BarData cd = new BarData(d);
+        //cd.setValueFormatter(new MyValueFormatter());
+        cd.setBarWidth(0.3f);// 바 두께
         return cd;
     }
 
