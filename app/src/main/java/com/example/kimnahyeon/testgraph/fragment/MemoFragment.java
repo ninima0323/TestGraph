@@ -32,7 +32,6 @@ public class MemoFragment extends Fragment implements  DatePickerDialog.OnDateSe
         View view = inflater.inflate(R.layout.fragment_memo, container, false);
 
 
-
         memo = (TextView)view.findViewById(R.id.tv_memo);
         TextView day = (TextView)view.findViewById(R.id.tv_date) ;
         TextView mi = (TextView)view.findViewById(R.id.tv_min);
