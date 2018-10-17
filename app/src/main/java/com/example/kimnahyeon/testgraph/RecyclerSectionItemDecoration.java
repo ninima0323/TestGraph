@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class RecyclerSectionItemDecoration extends RecyclerView.ItemDecoration {
 
     private View headerView;
     private TextView header;
+    private View shadow;
 
     public RecyclerSectionItemDecoration(int headerHeight, boolean sticky, @NonNull SectionCallback sectionCallback) {
         headerOffset = headerHeight;
@@ -42,11 +44,10 @@ public class RecyclerSectionItemDecoration extends RecyclerView.ItemDecoration {
         if (headerView == null) {
             headerView = inflateHeaderView(parent);
             header = (TextView) headerView.findViewById(R.id.tv_header);
+            shadow = headerView.findViewById(R.id.shadow);
+            headerView.setElevation(10);
             fixLayoutSize(headerView, parent);
         }
-
-        headerView.setBackgroundColor(rgb("fffefb"));
-        header.setTextColor(rgb("555555"));
 
         String previousHeader = "";
         for (int i = 0; i < parent.getChildCount(); i++) {
@@ -65,7 +66,11 @@ public class RecyclerSectionItemDecoration extends RecyclerView.ItemDecoration {
     private void drawHeader(Canvas c, View child, View headerView) {
         c.save();
         if (sticky) {
-            c.translate(0, Math.max(0, child.getTop() - headerView.getHeight()));
+            int max = Math.max(0, child.getTop() - headerView.getHeight());
+            Log.e("max", max+"");
+            if(max == 0) shadow.setVisibility(View.VISIBLE);
+            else shadow.setVisibility(View.GONE);
+            c.translate(0, max);
         } else {
             c.translate(0, child.getTop() - headerView.getHeight());
         }

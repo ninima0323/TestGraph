@@ -14,6 +14,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#fffefb"
+        android:elevation="4dp"
+        app:layout_constraintStart_toEndOf="@id/add_btn" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
