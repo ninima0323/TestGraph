@@ -76,7 +76,7 @@ public class MemoFragment extends Fragment implements  DatePickerDialog.OnDateSe
     }
 
     private void displayDate(){
-        memo.setText(getDate(nYear,nMonth,nDay,nHour,nMinute, mSecond).toString());
+        memo.setText(getDate(nYear,nMonth,nDay,nHour,nMinute).toString());
     }
 
 //    @Override
@@ -110,14 +110,15 @@ public class MemoFragment extends Fragment implements  DatePickerDialog.OnDateSe
         displayDate();
     }
 
-    public Date getDate(int year, int month, int day, int hour, int minute, int second) {
+    public Date getDate(int year, int month, int day, int hour, int minute) {
         Calendar cal = Calendar.getInstance();
+        int sec = cal.get(Calendar.SECOND);
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, day);
         cal.set(Calendar.HOUR_OF_DAY, hour);
         cal.set(Calendar.MINUTE, minute);
-        cal.set(Calendar.SECOND, second);
+        cal.set(Calendar.SECOND, sec);
         cal.set(Calendar.MILLISECOND, 0);
         return cal.getTime();
     }

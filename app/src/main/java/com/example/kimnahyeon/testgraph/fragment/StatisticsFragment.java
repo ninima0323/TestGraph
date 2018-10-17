@@ -1,14 +1,9 @@
 package com.example.kimnahyeon.testgraph.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,45 +13,41 @@ import android.widget.ListView;
 import com.example.kimnahyeon.testgraph.R;
 import com.example.kimnahyeon.testgraph.list.BarChartItem;
 import com.example.kimnahyeon.testgraph.list.ChartItem;
-import com.example.kimnahyeon.testgraph.list.LineChartItem;
 import com.example.kimnahyeon.testgraph.list.PieChartItem;
 import com.example.kimnahyeon.testgraph.list.StackBarChartItem;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.github.mikephil.charting.utils.ColorTemplate.rgb;
 
 
 public class StatisticsFragment extends Fragment {
 
 
     public StatisticsFragment() {
-        //this.context = context;
     }
 
     Context context;
-    private PieChart mChart;
-    protected Typeface mTfRegular;
-    protected Typeface mTfLight;
     protected String[] mParties = new String[] {
-            "기타", "교통", "식사", "쇼핑", "관람", "Party F", "Party G", "Party H",
-            "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
+            "기타", "교통", "식사", "쇼핑", "관람", "1", "2", "3",
+            "4", "5", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
             "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
             "Party Y", "Party Z"
+    };
+
+    public final int[] BASIC_COLORS = {
+            Color.rgb(192, 255, 140), Color.rgb(255, 247, 140), Color.rgb(255, 208, 140),
+            Color.rgb(140, 234, 255), Color.rgb(255, 140, 157),
+
+            rgb("#4BE8A9"),  rgb("#E7EE7C"),  rgb("#FDBE49"), rgb("#5CDCEC"), rgb("#D470E1")
     };
 
     @Override
@@ -158,8 +149,7 @@ public class StatisticsFragment extends Fragment {
         }
 
         BarDataSet d = new BarDataSet(entries, "일별 지출 총액"); //cnt+"일");
-        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        //d.setHighLightAlpha(255);
+        d.setColors(Color.rgb(207, 248, 246));
         d.setHighLightAlpha(120);
 
         BarData cd = new BarData(d);
@@ -177,8 +167,8 @@ public class StatisticsFragment extends Fragment {
 
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
-        int total = (1+2+3+4+5)*1000; //총 가
-        for (int i = 0; i < 5; i++) {
+        int total = (1+2+3+4+5+6+7+8+9+10)*1000; //총 가
+        for (int i = 0; i < 10; i++) {
             //(분야별 가격/총가격*100 , 분야스트링) 으로 파이 앤트리 생성 (전체에서 분야 비율 직접 계산)
             entries.add(new PieEntry((float) (i+1)*1000/total*100, mParties[i]));
         }
@@ -187,7 +177,7 @@ public class StatisticsFragment extends Fragment {
 
         // space between slices
         d.setSliceSpace(2f);
-        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        d.setColors(BASIC_COLORS);
 
         PieData cd = new PieData(d);
         return cd;
@@ -203,17 +193,27 @@ public class StatisticsFragment extends Fragment {
             float val3 = (float) i*10;
             float val4 = (float) i*10;
             float val5 = (float) i*10;
+            float val11 = (float) i*10;
+            float val21 = (float) i*10;
+            float val31 = (float) i*10;
+            float val41 = (float) i*10;
+            float val51 = (float) i*10;
             // 엑스축, 와이축 ==>날짜, 날별 총액
-            entries.add(new BarEntry(i, new float[]{val1, val2, val3,val4, val5}));
+            entries.add(new BarEntry(i, new float[]{val1, val2, val3,val4, val5
+                    ,val11, val21, val31,val41, val51}));
         }
 
-        BarDataSet d = new BarDataSet(entries, "일별 카테코리 총액"); //cnt+"일");
-        d.setColors(ColorTemplate.VORDIPLOM_COLORS);//색설정, 색이 5개면 카테고리 상관없이 1부터 5까지 다 쓰고 나서야 1이 다시나옴
+        int[] lcolor = new int[5];//마지막 5에 카테고리 수가 들어가야함
+        System.arraycopy(BASIC_COLORS, 0, lcolor, 0, 5);//마지막 5에 카테고리 수가 들어가야함
+
+        BarDataSet d = new BarDataSet(entries, " ");
+        d.setColors(BASIC_COLORS);//색설정, 색이 5개면 카테고리 상관없이 1부터 5까지 다 쓰고 나서야 1이 다시나옴
+        //d.setColors(lcolor); //카테고리수에 맞춰 색을 정하는게 바로 이코드 위에껀 걍 10개 그대로 보여주느라..ㅎ
         d.setHighLightAlpha(120);
-        d.setStackLabels(new String[]{"1", "2", "3", "4", "5"});
+       // d.setStackLabels(new String[]{"교통", "식사", "관람", "쇼핑", "기타"});//카테고리리스트를 넣어야함
+        d.setStackLabels(new String[10]);
 
         BarData cd = new BarData(d);
-        //cd.setValueFormatter(new MyValueFormatter());
         cd.setBarWidth(0.3f);// 바 두께
         return cd;
     }

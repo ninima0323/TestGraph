@@ -2,6 +2,7 @@ package com.example.kimnahyeon.testgraph;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,13 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((TextHolder)holder).tag.setText(c.getTag());
         ((TextHolder)holder).price.setText(Float.toString(c.getPrice()));//float->string
         ((TextHolder)holder).concurrency.setText(c.getConcurrency());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("!!!!!!!!!!!!!!!!!!","hihi");
+            }
+        });
     }
 
 
