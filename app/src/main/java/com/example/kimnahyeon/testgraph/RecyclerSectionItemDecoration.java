@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import static com.github.mikephil.charting.utils.ColorTemplate.rgb;
-
 public class RecyclerSectionItemDecoration extends RecyclerView.ItemDecoration {
     private final int             headerOffset;
     private final boolean         sticky;
